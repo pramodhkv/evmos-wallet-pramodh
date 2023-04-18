@@ -20,9 +20,10 @@ export const useFetchWalletBalance = () => {
       process.env.NEXT_PUBLIC_NODE_URL
     }${provider.generateEndpointBalances(keplrAddress)}`;
 
-    const restOptions = {
+    const restOptions: RequestInit = {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      mode: "cors",
     };
 
     try {

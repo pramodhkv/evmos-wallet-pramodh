@@ -7,9 +7,10 @@ export const useFetchTransactions = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const restOptions = {
+  const restOptions: RequestInit = {
     method: "GET",
     headers: { "Content-Type": "application/json" },
+    mode: "cors",
   };
 
   const fetchCosmosTransactions = async (address: string) => {

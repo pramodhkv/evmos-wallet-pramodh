@@ -9,12 +9,19 @@ export const useFetchTransactionDetail = ({ tx, chain }: IChainTransaction) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  const restOptions: RequestInit = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    mode: "cors",
+  };
+
   const fetchCosmosTx = async () => {
     setLoading(true);
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_COSMOS_WALLET_BASE_URL}${process.env.NEXT_PUBLIC_COSMOS_WALLET_TRANSACTIONS_BY_HASH_URL}/${tx}`
+        `${process.env.NEXT_PUBLIC_COSMOS_WALLET_BASE_URL}${process.env.NEXT_PUBLIC_COSMOS_WALLET_TRANSACTIONS_BY_HASH_URL}/${tx}`,
+        restOptions
       );
       const txObj = await res.json();
 
@@ -52,7 +59,8 @@ export const useFetchTransactionDetail = ({ tx, chain }: IChainTransaction) => {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ETHEREUM_WALLET_TRANSACTIONS_BY_HASH_URL}&txhash=${tx}`
+        `${process.env.NEXT_PUBLIC_ETHEREUM_WALLET_TRANSACTIONS_BY_HASH_URL}&txhash=${tx}`,
+        restOptions
       );
       const data = await res.json();
       const txObj = data.result;
